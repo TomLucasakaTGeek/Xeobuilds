@@ -58,14 +58,11 @@ if ( dbchoice === 'MySQL' ) {
                     console.log(result)
                     
                     `
-    } else if ( dbchoice === 'MongoDB' ) {
-        dbjs = ``       
-        
-        } else {
-                console.log("error Occured")
-            }
+} else {
+    console.log("error Occured")
+}
                             
-    fs.appendFile(projPath + '/Models/db.js', )
+fs.appendFile(projPath + '/Models/db.js', )
 
 
 // Controller/index.js ,

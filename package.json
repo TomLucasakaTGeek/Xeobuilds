@@ -1,5 +1,5 @@
 {
-  "name": "scaff",
+  "name": "pipe-wheel",
   "version": "1.0.0",
   "description": "A CLI Build Tool to scaffold a MERN App",
   "main": "index.js",
@@ -16,7 +16,7 @@
     "child_process": "^1.0.2",
     "gradient-string": "^3.0.0",
     "inquirer": "^12.3.0",
-    "mysql2": "^3.12.0",
+    "mysql2": "^3.14.0",
     "nanospinner": "^1.2.2"
   }
 }

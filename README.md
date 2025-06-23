@@ -31,6 +31,14 @@
 - router
 
 
+## Project Structure:
+> project-name
+- package.json 
+- Models/db.js 
+- Controller/index.js
+- Middleware/handler.js 
+- Config/.env 
+
 ## Possible Languages / Variants:
 - Javascript
 - Typescript

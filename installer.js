@@ -8,9 +8,9 @@ import { dbchoice, exit } from './index.js'
 const baseCmd = 'npm i ';
 
 //installer function 
-export function inst() {
+export function installer() {
 
-    let dependencies ;
+    let dependencies;
 
     const spinner = createSpinner(chalk.whiteBright('Installing Dependencies...')).start()
 

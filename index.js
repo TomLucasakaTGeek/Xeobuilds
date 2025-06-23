@@ -3,26 +3,27 @@
 import chalk from 'chalk'
 import chalkAnimation from 'chalk-animation'
 import inquirer from 'inquirer'
-import { inst } from './installer.js';
+import { installer } from './installer.js';
+import { writeFiles } from './fileCreator.js';
 
 
-//global responses
+// global responses
 export let projectName;
 export let dbchoice;
 export let langchoice;
 
-//timeout
+// timeout
 export const sleep = ( ms = 1000 ) => new Promise( ( r ) => setTimeout(r, ms) )
 
-//welcome function 
+// welcome function 
 async function welcome() {
-    const rainbowTitle = chalkAnimation.rainbow("\n Welcome to scaff \n")
+    const rainbowTitle = chalkAnimation.rainbow("\n Welcome to XeoBuilds \n")
 
     await sleep()
     rainbowTitle.stop()
 }
 
-//project name
+// project name
 async function askName() {
     const res = await inquirer.prompt({
         name: 'admin_name',
@@ -41,7 +42,7 @@ async function askDb() {
     const res = await inquirer.prompt({
         name: 'db_name',
         type: 'list',
-        message: `${chalk.yellowBright('Select your Database...')}`,
+        message: `${chalk.yellowBright('Select your Database ...')}`,
         choices: [
             `${chalk.greenBright('MongoDB')}`,
             `${chalk.whiteBright('MySQL')}`,
@@ -77,8 +78,8 @@ await askLang()
 console.log("\n")
 
 console.log(chalk.whiteBright("Setting up your Project ... "))
-inst()
-
+installer()
+writeFiles()
 
 //exit function 
 export async function exit(str) {

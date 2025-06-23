@@ -4,7 +4,7 @@ import chalk from 'chalk'
 import chalkAnimation from 'chalk-animation'
 import inquirer from 'inquirer'
 import { installer } from './installer.js';
-import { writeFiles } from './fileCreator.js';
+import { writeDbFiles, writeFiles, writeServerFiles } from './fileCreator.js';
 
 
 // global responses
@@ -79,7 +79,9 @@ console.log("\n")
 
 console.log(chalk.whiteBright("Setting up your Project ... "))
 installer()
-writeFiles()
+writeDbFiles()
+writeServerFiles()
+
 
 //exit function 
 export async function exit(str) {

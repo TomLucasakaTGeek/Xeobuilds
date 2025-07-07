@@ -1,14 +1,14 @@
 import { createSpinner } from 'nanospinner'
 import { execSync } from 'child_process'
 import chalk from 'chalk'
-import { dbchoice, exit } from './index.js'
+import { exit } from './index.js'
 
 
 // base command
 const baseCmd = 'npm i ';
 
 //installer function 
-export function installer() {
+export function installer(dbchoice) {
 
     let dependencies;
 

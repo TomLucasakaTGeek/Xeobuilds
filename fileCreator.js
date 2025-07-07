@@ -1,5 +1,4 @@
 import * as fs from 'node:fs/promises'
-import { projectName, dbchoice } from './index.js'
 import path from 'node:path'
 
 
@@ -9,14 +8,16 @@ const cwd = process.cwd()
 
 //create db.js file 
 
-// add path of templates
-const dbfile = ( dbchoice === 'MySQL' ) ? 'db-sql.js' : 'db-mongo.js' ;
-const dbTemplatePath = path.join(cwd, 'Templates', dbfile)
-
 // creating and writing content in db.js
-export const writeDbFiles = async () => {
+export const writeDbFiles = async (dbchoice) => {
+    // add path of templates
+    const dbfile = ( dbchoice === 'MySQL' ) ? 'db-sql.js' : 'db-mongo.js' 
+    console.log(dbfile)
+    const dbTemplatePath = path.join(cwd, 'Templates', dbfile)
+
     const content = await fs.readFile(dbTemplatePath, 'utf-8')
     const filepath = 'db.js'
+    console.log('Creating Database Files...')
     try {
         await fs.writeFile(filepath, content)
         console.log('File Created Successfully')
@@ -28,13 +29,14 @@ export const writeDbFiles = async () => {
 
 //create express.js file 
 
-// add path of templates
-const serverTemplatePath = path.join(cwd, 'Templates', 'express.js')
-
-// creating and writing content in db.js
+// creating and writing content in index.js
 export const writeServerFiles = async () => {
+    // add path of templates
+    const serverTemplatePath = path.join(cwd, 'Templates', 'express.js')
+
     const content = await fs.readFile(serverTemplatePath, 'utf-8')
     const filepath = 'app.js'
+    console.log('Creating Server File...')
     try {
         await fs.writeFile(filepath, content)
         console.log('File Created Successfully')

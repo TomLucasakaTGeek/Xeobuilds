@@ -4,12 +4,13 @@ import chalk from 'chalk'
 import chalkAnimation from 'chalk-animation'
 import inquirer from 'inquirer'
 import { installer } from './installer.js';
-import { writeDbFiles, writeFiles, writeServerFiles } from './fileCreator.js';
+import { writeDbFiles, writeServerFiles } from './fileCreator.js';
+import { createFolder } from './folderCreater.js';
 
 
 // global responses
 export let projectName;
-export let dbchoice;
+let dbchoice;
 export let langchoice;
 
 // timeout
@@ -44,8 +45,8 @@ async function askDb() {
         type: 'list',
         message: `${chalk.yellowBright('Select your Database ...')}`,
         choices: [
-            `${chalk.greenBright('MongoDB')}`,
-            `${chalk.whiteBright('MySQL')}`,
+            { name: chalk.greenBright('MongoDB'), value: 'MongoDB'},
+            {name: chalk.whiteBright('MySQL'), value: 'MySQL'},
         ],
     })
 
@@ -78,8 +79,9 @@ await askLang()
 console.log("\n")
 
 console.log(chalk.whiteBright("Setting up your Project ... "))
-installer()
-writeDbFiles()
+installer(dbchoice)
+createFolder('model')
+await writeDbFiles(dbchoice)
 writeServerFiles()
 
 

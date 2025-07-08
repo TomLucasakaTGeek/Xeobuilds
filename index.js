@@ -69,7 +69,6 @@ async function askLang() {
 }
 
 
-
 // fnc calls
 await welcome()
 await askName()

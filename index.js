@@ -4,14 +4,19 @@ import chalk from 'chalk'
 import chalkAnimation from 'chalk-animation'
 import inquirer from 'inquirer'
 import { installer } from './installer.js';
-import { writeDbFiles, writeServerFiles } from './fileCreator.js';
-import { createFolder } from './folderCreater.js';
+import { 
+    writeDbFiles, 
+    writeServerFiles, 
+    writeEnvFile 
+} from './fileCreator.js';
+import { createFolders, createProjectDir } from './folderCreater.js';
 
 
 // global responses
-export let projectName;
+let rawProjectName;
 let dbchoice;
-export let langchoice;
+let langchoice;
+
 
 // timeout
 export const sleep = ( ms = 1000 ) => new Promise( ( r ) => setTimeout(r, ms) )
@@ -35,8 +40,9 @@ async function askName() {
         },
     })
     
-    projectName = chalk.redBright(res.admin_name)
+    return res.admin_name
 }
+
 
 // database selection
 async function askDb() {
@@ -69,19 +75,35 @@ async function askLang() {
 }
 
 
-// fnc calls
+// inquirer execution calls
 await welcome()
-await askName()
+
+rawProjectName = await askName()
+// creating root directory
+createProjectDir(rawProjectName)
+
 await askDb()
 await askLang()
 
 console.log("\n")
 
+// project set up execution calls
 console.log(chalk.whiteBright("Setting up your Project ... "))
-installer(dbchoice)
-createFolder('model')
-await writeDbFiles(dbchoice)
+// installer(dbchoice)
+const backendFolders = [
+  'src/config',
+  'src/controllers',
+  'src/middlewares',
+  'src/models',
+  'src/routes',
+//   'services',
+//   'validations',
+//   'utils'
+];
+createFolders(backendFolders)
+await writeEnvFile()
 await writeServerFiles()
+await writeDbFiles(dbchoice)
 
 
 //exit function 
@@ -90,4 +112,3 @@ export async function exit(str) {
     await sleep()
     rainbowTitle.stop()
 }
-

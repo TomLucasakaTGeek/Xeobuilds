@@ -1,48 +1,49 @@
-import * as fs from 'node:fs/promises'
-import path from 'node:path'
+import { fileURLToPath } from 'url';
+import path from 'path';
+import * as fs from 'node:fs/promises';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// get currenct directory
-const cwd = process.cwd()
+// Stable reference to your Templates folder in scaff/
+const templateDir = path.join(__dirname, 'Templates');
 
+// 🟡 Create empty .env
+export const writeEnvFile = async () => {
+  const envPath = path.join(process.cwd(), 'src', 'config', '.env');
+  try {
+    await fs.writeFile(envPath, '', 'utf-8');
+    console.log('✅ .env file created in src/config');
+  } catch (error) {
+    console.error('❌ Failed to create .env file:', error);
+  }
+};
 
-//create db.js file 
-
-// creating and writing content in db.js
+// 🔵 Generate db.js from template
 export const writeDbFiles = async (dbchoice) => {
-    // add path of templates
-    const dbfile = ( dbchoice === 'MySQL' ) ? 'db-sql.js' : 'db-mongo.js' 
-    console.log(dbfile)
-    const dbTemplatePath = path.join(cwd, 'Templates', dbfile)
+  const dbfile = dbchoice === 'MySQL' ? 'db-sql.js' : 'db-mongo.js';
+  const dbTemplatePath = path.join(templateDir, dbfile);
+  const targetPath = path.join(process.cwd(), 'src', 'models', 'db.js');
 
-    const content = await fs.readFile(dbTemplatePath, 'utf-8')
-    const filepath = 'db.js'
-    console.log('Creating Database Files...')
-    try {
-        await fs.writeFile(filepath, content)
-        console.log('File Created Successfully')
-    } catch (error) {
-        console.log(error)
-    }
-}
+  try {
+    const content = await fs.readFile(dbTemplatePath, 'utf-8');
+    await fs.writeFile(targetPath, content);
+    console.log('✅ db.js created successfully');
+  } catch (error) {
+    console.error('❌ Failed to create db.js:', error);
+  }
+};
 
-
-//create express.js file 
-
-// creating and writing content in index.js
+// 🟢 Generate app.js from express.js
 export const writeServerFiles = async () => {
-    // add path of templates
-    const serverTemplatePath = path.join(cwd, 'Templates', 'express.js')
+  const serverTemplatePath = path.join(templateDir, 'express.js');
+  const targetPath = path.join(process.cwd(), 'app.js');
 
-    const content = await fs.readFile(serverTemplatePath, 'utf-8')
-    const filepath = 'app.js'
-    console.log('Creating Server File...')
-    try {
-        await fs.writeFile(filepath, content)
-        console.log('File Created Successfully')
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-
+  try {
+    const content = await fs.readFile(serverTemplatePath, 'utf-8');
+    await fs.writeFile(targetPath, content);
+    console.log('✅ app.js created successfully');
+  } catch (error) {
+    console.error('❌ Failed to create app.js:', error);
+  }
+};

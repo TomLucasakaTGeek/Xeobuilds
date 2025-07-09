@@ -81,13 +81,12 @@ console.log(chalk.whiteBright("Setting up your Project ... "))
 installer(dbchoice)
 createFolder('model')
 await writeDbFiles(dbchoice)
-writeServerFiles()
+await writeServerFiles()
 
 
 //exit function 
 export async function exit(str) {
     const rainbowTitle = chalkAnimation.rainbow(str)
-
     await sleep()
     rainbowTitle.stop()
 }

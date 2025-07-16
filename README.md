@@ -1,5 +1,10 @@
-# BUILD TOOL TO SCAFFOLD A MERN/SERN APP
+# XEOBUILD: Backend Project Scaffolding Tool
 
+## Problem Statement:
+A Project Scaffolding Framework similar to Vite.js and Next.js that aims to provide a ready-to-code boilerplate for working with MongoDB or MySQL databases. The Project aims to minimize the setup time for building a MERN or SERN app, enhancing productivity and efficiency for developers.
+
+
+## 
 
 ## Libraries used to build:
 - inquirer
